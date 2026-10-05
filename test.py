@@ -1,7 +1,7 @@
 import requests
 
 
-SERVER_URL = "http://localhost:5000"
+SERVER_URL = "http://172.20.10.2:5000"
 
 while True:
     choice = input("1-Get , 2-Post : ")
