@@ -78,6 +78,7 @@ def get_data(uid):
         })
 
     return jsonify({
+        "error":"None",
         "uid": uid,
         "data": data
     })
@@ -283,9 +284,8 @@ def add_name():
     return jsonify({
 
         "message": "User registered successfully",
-
+        "error":"None",
         "data": {
-            "error":"None",
             "uid": uid,
             "name": name
         }
