@@ -31,7 +31,10 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             uid TEXT NOT NULL,
             name TEXT NOT NULL,
-            weight REAL NOT NULL,
+            weight1 REAL NOT NULL,
+            weight2 REAL NOT NULL,
+            weight3 REAL NOT NULL,
+            weight4 REAL NOT NULL,
             time TEXT NOT NULL
         )
     """)
@@ -55,7 +58,7 @@ def get_data(uid):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT id, uid, name, weight, time
+        SELECT *
         FROM waste_data
         WHERE uid = ?
         ORDER BY id ASC
@@ -73,7 +76,10 @@ def get_data(uid):
             "id": row["id"],
             "uid": row["uid"],
             "name": row["name"],
-            "weight": row["weight"],
+            "weight1": row["weight1"],
+            "weight2": row["weight2"],
+            "weight3": row["weight3"],
+            "weight4": row["weight4"],
             "time": row["time"]
         })
 
@@ -102,7 +108,10 @@ def save_data():
 
 
     uid = data.get("uid")
-    weight = data.get("weight")
+    weight1 = data.get("weight1")
+    weight2 = data.get("weight2")
+    weight3 = data.get("weight3")
+    weight4 = data.get("weight4")
 
 
     # Check UID
@@ -116,7 +125,7 @@ def save_data():
 
     # Check weight
 
-    if weight is None:
+    if weight1 is None:
 
         return jsonify({
             "error": "Weight is required"
@@ -127,7 +136,10 @@ def save_data():
 
     try:
 
-        weight = float(weight)
+        weight1 = float(weight1)
+        weight2 = float(weight2)
+        weight3 = float(weight3)
+        weight4 = float(weight4)
 
     except (ValueError, TypeError):
 
@@ -182,12 +194,15 @@ def save_data():
 
     cursor.execute("""
         INSERT INTO waste_data
-        (uid, name, weight, time)
-        VALUES (?, ?, ?, ?)
+        (uid, name, weight1, weight2, weight3, weight4, time)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     """, (
         uid,
         name,
-        weight,
+        weight1,
+        weight2,
+        weight3,
+        weight4,
         current_time
     ))
 
@@ -210,7 +225,10 @@ def save_data():
             "id": new_id,
             "uid": uid,
             "name": name,
-            "weight": weight,
+            "weight1": weight1,
+            "weight2": weight2,
+            "weight3": weight3,
+            "weight4": weight4,
             "time": current_time
         }
 

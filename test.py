@@ -1,7 +1,7 @@
 import requests
 import time
 
-SERVER_URL = "http://10.255.63.147:5000"
+SERVER_URL = "http://127.0.0.1:5000"
 
 
 while True:
@@ -44,11 +44,15 @@ while True:
             for user in data["data"]:
                 print(f"  ID      : {user['id']}")
                 print(f"  Name    : {user['name']}")
-                print(f"  Weight  : {user['weight']} g")
+                print(f"  Weight1  : {user['weight1']} g")
+                print(f"  Weight2  : {user['weight2']} g")
+                print(f"  Weight3  : {user['weight3']} g")
+                print(f"  Weight4  : {user['weight4']} g")
                 print(f"  Time    : {user['time']}")
                 print("  ----------------------------")
-
-                total_weight += user["weight"]
+                
+                for i in range(4):
+                    total_weight += user[f"weight{i+1}"]
 
             print(f"  TOTAL WEIGHT : {total_weight} Kg")
             print("------------------------------")
@@ -72,11 +76,17 @@ while True:
         print("------------------------------")
 
         uid = input("  Enter UID: ")
-        weight = input("  Enter Weight (Kg): ")
+        weight1 = input("  Enter Weight (Kg): ")
+        weight2 = input("  Enter Weight (Kg): ")
+        weight3 = input("  Enter Weight (Kg): ")
+        weight4 = input("  Enter Weight (Kg): ")
 
         data = {
             "uid": uid,
-            "weight": weight
+            "weight1": weight1,
+            "weight2": weight2,
+            "weight3": weight3,
+            "weight4": weight4
         }
         try:
             req = requests.post(SERVER_URL, json=data)
